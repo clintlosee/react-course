@@ -1,7 +1,7 @@
-# React-Ingredients
+# React-Component-Exercise-27
 
 ### Project Information
-This is an initial React application to learn React components and how they work. It is a simple React list type application.
+This is an exercise in creating different React components to make up a webpage
 
 ##### Development Technologies Additional Information
 
