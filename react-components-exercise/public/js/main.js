@@ -19096,6 +19096,84 @@ module.exports = HighlightValue;
 
 },{"react":157}],162:[function(require,module,exports){
 var React = require('react');
+var MetricValue = require('./MetricValue.jsx');
+var MetricLabel = require('./MetricLabel.jsx');
+
+var Metric = React.createClass({
+    displayName: 'Metric',
+
+    render: function () {
+        var divStyles = {};
+
+        if (this.props.bgColor) {
+            divStyles.background = this.props.bgColor;
+            divStyles.color = '#FFF';
+        }
+
+        return React.createElement(
+            'div',
+            { className: 'panel panel-default' },
+            React.createElement(
+                'div',
+                { style: divStyles, className: 'panel-heading' },
+                React.createElement(MetricLabel, { text: this.props.label }),
+                React.createElement(MetricValue, { text: this.props.value })
+            ),
+            React.createElement(
+                'div',
+                { className: 'panel-body' },
+                ' '
+            )
+        );
+    }
+});
+
+module.exports = Metric;
+
+},{"./MetricLabel.jsx":163,"./MetricValue.jsx":164,"react":157}],163:[function(require,module,exports){
+var React = require('react');
+
+var MetricLabel = React.createClass({
+    displayName: "MetricLabel",
+
+    render: function () {
+        var labelStyles = {
+            marginBottom: 0
+        };
+
+        return React.createElement(
+            "p",
+            { className: "text-left", style: labelStyles },
+            this.props.text
+        );
+    }
+});
+
+module.exports = MetricLabel;
+
+},{"react":157}],164:[function(require,module,exports){
+var React = require('react');
+
+var MetricValue = React.createClass({
+    displayName: "MetricValue",
+
+    render: function () {
+        var valueStyles = {
+            marginTop: 0
+        };
+
+        return React.createElement(
+            "h2",
+            { className: "text-left", style: valueStyles },
+            this.props.text
+        );
+    }
+});
+
+module.exports = MetricValue;
+
+},{"react":157}],165:[function(require,module,exports){
+var React = require('react');
 var WeatherLocation = require('./WeatherLocation.jsx');
 var WeatherTemp = require('./WeatherTemp.jsx');
 
@@ -19126,7 +19204,7 @@ var Weather = React.createClass({
 
 module.exports = Weather;
 
-},{"./WeatherLocation.jsx":163,"./WeatherTemp.jsx":164,"react":157}],163:[function(require,module,exports){
+},{"./WeatherLocation.jsx":166,"./WeatherTemp.jsx":167,"react":157}],166:[function(require,module,exports){
 var React = require('react');
 
 var WeatherLocation = React.createClass({
@@ -19143,7 +19221,7 @@ var WeatherLocation = React.createClass({
 
 module.exports = WeatherLocation;
 
-},{"react":157}],164:[function(require,module,exports){
+},{"react":157}],167:[function(require,module,exports){
 var React = require('react');
 
 var WeatherTemp = React.createClass({
@@ -19161,11 +19239,12 @@ var WeatherTemp = React.createClass({
 
 module.exports = WeatherTemp;
 
-},{"react":157}],165:[function(require,module,exports){
+},{"react":157}],168:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Weather = require('./components/weather/Weather.jsx');
 var Highlight = require('./components/highlight/Highlight.jsx');
+var Metric = require('./components/metrics/Metric.jsx');
 
 ReactDOM.render(React.createElement(Highlight, { value: '20', label: 'New followers added this month' }), document.getElementById('highlight-one'));
 ReactDOM.render(React.createElement(Highlight, { value: '$1250', label: 'Average Monthly Income' }), document.getElementById('highlight-two'));
@@ -19173,4 +19252,9 @@ ReactDOM.render(React.createElement(Highlight, { value: '$13865', label: 'Yearly
 
 ReactDOM.render(React.createElement(Weather, { temp: '12', location: 'Salt Lake City', bgColor: '#FF6600' }), document.getElementById('weather'));
 
-},{"./components/highlight/Highlight.jsx":159,"./components/weather/Weather.jsx":162,"react":157,"react-dom":1}]},{},[165]);
+ReactDOM.render(React.createElement(Metric, { label: 'New visitors', value: '1.5k', bgColor: '#0EBFE9' }), document.getElementById('metric-one'));
+ReactDOM.render(React.createElement(Metric, { label: 'Bounce Rate', value: '50%', bgColor: '#BA55D3' }), document.getElementById('metric-two'));
+ReactDOM.render(React.createElement(Metric, { label: 'Searches', value: '28%', bgColor: '#FF0000' }), document.getElementById('metric-three'));
+ReactDOM.render(React.createElement(Metric, { label: 'Traffic', value: '140.5kb', bgColor: '#4AC948' }), document.getElementById('metric-four'));
+
+},{"./components/highlight/Highlight.jsx":159,"./components/metrics/Metric.jsx":162,"./components/weather/Weather.jsx":165,"react":157,"react-dom":1}]},{},[168]);
