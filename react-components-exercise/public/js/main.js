@@ -19032,6 +19032,70 @@ process.umask = function() { return 0; };
 
 },{}],159:[function(require,module,exports){
 var React = require('react');
+var HighlightLabel = require('./HighlightLabel.jsx');
+var HighlightValue = require('./HighlightValue.jsx');
+
+var Highlight = React.createClass({
+    displayName: 'Highlight',
+
+    render: function () {
+        var divStyles = {};
+
+        return React.createElement(
+            'div',
+            { className: 'col-sm-4' },
+            React.createElement(
+                'div',
+                { style: divStyles, className: 'panel panel-default' },
+                React.createElement(
+                    'div',
+                    { className: 'panel-body' },
+                    React.createElement(HighlightValue, { text: this.props.value }),
+                    React.createElement(HighlightLabel, { text: this.props.label })
+                )
+            )
+        );
+    }
+});
+
+module.exports = Highlight;
+
+},{"./HighlightLabel.jsx":160,"./HighlightValue.jsx":161,"react":157}],160:[function(require,module,exports){
+var React = require('react');
+
+var HighlightLabel = React.createClass({
+    displayName: "HighlightLabel",
+
+    render: function () {
+        return React.createElement(
+            "p",
+            { className: "text-center" },
+            this.props.text
+        );
+    }
+});
+
+module.exports = HighlightLabel;
+
+},{"react":157}],161:[function(require,module,exports){
+var React = require('react');
+
+var HighlightValue = React.createClass({
+    displayName: "HighlightValue",
+
+    render: function () {
+        return React.createElement(
+            "h2",
+            { className: "text-center" },
+            this.props.text
+        );
+    }
+});
+
+module.exports = HighlightValue;
+
+},{"react":157}],162:[function(require,module,exports){
+var React = require('react');
 var WeatherLocation = require('./WeatherLocation.jsx');
 var WeatherTemp = require('./WeatherTemp.jsx');
 
@@ -19062,7 +19126,7 @@ var Weather = React.createClass({
 
 module.exports = Weather;
 
-},{"./WeatherLocation.jsx":160,"./WeatherTemp.jsx":161,"react":157}],160:[function(require,module,exports){
+},{"./WeatherLocation.jsx":163,"./WeatherTemp.jsx":164,"react":157}],163:[function(require,module,exports){
 var React = require('react');
 
 var WeatherLocation = React.createClass({
@@ -19079,7 +19143,7 @@ var WeatherLocation = React.createClass({
 
 module.exports = WeatherLocation;
 
-},{"react":157}],161:[function(require,module,exports){
+},{"react":157}],164:[function(require,module,exports){
 var React = require('react');
 
 var WeatherTemp = React.createClass({
@@ -19097,11 +19161,16 @@ var WeatherTemp = React.createClass({
 
 module.exports = WeatherTemp;
 
-},{"react":157}],162:[function(require,module,exports){
+},{"react":157}],165:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Weather = require('./components/weather/Weather.jsx');
+var Highlight = require('./components/highlight/Highlight.jsx');
+
+ReactDOM.render(React.createElement(Highlight, { value: '20', label: 'New followers added this month' }), document.getElementById('highlight-one'));
+ReactDOM.render(React.createElement(Highlight, { value: '$1250', label: 'Average Monthly Income' }), document.getElementById('highlight-two'));
+ReactDOM.render(React.createElement(Highlight, { value: '$13865', label: 'Yearly Income Goal' }), document.getElementById('highlight-three'));
 
 ReactDOM.render(React.createElement(Weather, { temp: '12', location: 'Salt Lake City', bgColor: '#FF6600' }), document.getElementById('weather'));
 
-},{"./components/weather/Weather.jsx":159,"react":157,"react-dom":1}]},{},[162]);
+},{"./components/highlight/Highlight.jsx":159,"./components/weather/Weather.jsx":162,"react":157,"react-dom":1}]},{},[165]);
