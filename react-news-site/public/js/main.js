@@ -23283,7 +23283,19 @@ var Header = React.createClass({
     render: function () {
         var headerStyles = {
             background: "#1C86EE",
-            color: "#ffffff"
+            color: "#ffffff",
+            minHeight: '200px'
+        };
+        var socialUL = {
+            marginTop: '20px'
+        };
+        var socialLI = {
+            display: 'inline'
+        };
+        var socialIcons = {
+            width: '32px',
+            float: 'left',
+            marginRight: '20px'
         };
 
         return React.createElement(
@@ -23300,6 +23312,34 @@ var Header = React.createClass({
                         { className: 'col-xs-4' },
                         React.createElement(HeaderTitle, { text: this.props.title }),
                         React.createElement(HeaderSubTitle, { text: this.props.subtitle })
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'col-xs-4 pull-right' },
+                        React.createElement(
+                            'ul',
+                            { style: socialUL },
+                            React.createElement(
+                                'li',
+                                { style: socialLI },
+                                React.createElement('img', { src: 'img/fb-icon.png', style: socialIcons })
+                            ),
+                            React.createElement(
+                                'li',
+                                { style: socialLI },
+                                React.createElement('img', { src: 'img/twitter-icon.png', style: socialIcons })
+                            ),
+                            React.createElement(
+                                'li',
+                                { style: socialLI },
+                                React.createElement('img', { src: 'img/instagram-icon.png', style: socialIcons })
+                            ),
+                            React.createElement(
+                                'li',
+                                { style: socialLI },
+                                React.createElement('img', { src: 'img/youtube-icon.png', style: socialIcons })
+                            )
+                        )
                     )
                 )
             )
@@ -23317,7 +23357,7 @@ var HeaderSubTitle = React.createClass({
 
     render: function () {
         return React.createElement(
-            "h3",
+            "h4",
             null,
             this.props.text || "Top stories in my country"
         );
