@@ -1,7 +1,15 @@
 var React = require('react');
 var HeaderTitle = require('./HeaderTitle.jsx');
 var HeaderSubTitle = require('./HeaderSubTitle.jsx');
+var SocialListItem = require('./SocialIcons.jsx');
 var Link = require('react-router').Link;
+
+var socialIcons = [
+    {"id":1, "src":"img/youtube-icon.png", "url":"http://youtube.com"},
+    {"id":2, "src":"img/instagram-icon.png", "url":"http://instagram.com"},
+    {"id":3, "src":"img/twitter-icon.png", "url":"http://twitter.com"},
+    {"id":4, "src":"img/fb-icon.png", "url":"http://facebook.com"}
+];
 
 var Header = React.createClass({
     render: function() {
@@ -12,21 +20,19 @@ var Header = React.createClass({
         };
         var socialUL = {
             marginTop: '20px'
-        }
-        var socialLI = {
-            display: 'inline'
-        };
-        var socialIcons = {
-            width: '32px',
-            float: 'right',
-            marginLeft: '20px'
         };
         var navStyles = {
             fontSize: '1.3em'
         };
         var textColor = {
             color: '#FFF'
-        }
+        };
+
+        var socialListItems = socialIcons.map(function(item) {
+            return (
+                <SocialListItem key={item.id} src={item.src} url={item.url} />
+            );
+        });
 
         return (
             <div style={headerStyles}>
@@ -38,18 +44,7 @@ var Header = React.createClass({
                         </div>
                         <div className="col-xs-4 col-xs-offset-4 pull-right">
                             <ul style={socialUL}>
-                                <li style={socialLI}>
-                                    <a href="http://youtube.com"><img src="img/youtube-icon.png" style={socialIcons} /></a>
-                                </li>
-                                <li style={socialLI}>
-                                    <a href="http://instagram.com"><img src="img/instagram-icon.png" style={socialIcons} /></a>
-                                </li>
-                                <li style={socialLI}>
-                                    <a href="http://twitter.com"><img src="img/twitter-icon.png" style={socialIcons} /></a>
-                                </li>
-                                <li style={socialLI}>
-                                    <a href="http://facebook.com"><img src="img/fb-icon.png" style={socialIcons} /></a>
-                                </li>
+                                {socialListItems}
                             </ul>
                         </div>
                     </div>

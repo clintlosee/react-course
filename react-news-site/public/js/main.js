@@ -23234,7 +23234,7 @@ var Routes = React.createClass({
 
 module.exports = Routes;
 
-},{"./components/Base.jsx":209,"./components/News/News.jsx":213,"./components/Photos/Photos.jsx":214,"history/lib/createHashHistory":7,"react":206,"react-router":44}],209:[function(require,module,exports){
+},{"./components/Base.jsx":209,"./components/News/News.jsx":214,"./components/Photos/Photos.jsx":215,"history/lib/createHashHistory":7,"react":206,"react-router":44}],209:[function(require,module,exports){
 var React = require('react');
 var Header = require('./Header/Header.jsx');
 
@@ -23257,7 +23257,10 @@ module.exports = Base;
 var React = require('react');
 var HeaderTitle = require('./HeaderTitle.jsx');
 var HeaderSubTitle = require('./HeaderSubTitle.jsx');
+var SocialListItem = require('./SocialIcons.jsx');
 var Link = require('react-router').Link;
+
+var socialIcons = [{ "id": 1, "src": "img/youtube-icon.png", "url": "http://youtube.com" }, { "id": 2, "src": "img/instagram-icon.png", "url": "http://instagram.com" }, { "id": 3, "src": "img/twitter-icon.png", "url": "http://twitter.com" }, { "id": 4, "src": "img/fb-icon.png", "url": "http://facebook.com" }];
 
 var Header = React.createClass({
     displayName: 'Header',
@@ -23271,20 +23274,16 @@ var Header = React.createClass({
         var socialUL = {
             marginTop: '20px'
         };
-        var socialLI = {
-            display: 'inline'
-        };
-        var socialIcons = {
-            width: '32px',
-            float: 'right',
-            marginLeft: '20px'
-        };
         var navStyles = {
             fontSize: '1.3em'
         };
         var textColor = {
             color: '#FFF'
         };
+
+        var socialListItems = socialIcons.map(function (item) {
+            return React.createElement(SocialListItem, { key: item.id, src: item.src, url: item.url });
+        });
 
         return React.createElement(
             'div',
@@ -23307,42 +23306,7 @@ var Header = React.createClass({
                         React.createElement(
                             'ul',
                             { style: socialUL },
-                            React.createElement(
-                                'li',
-                                { style: socialLI },
-                                React.createElement(
-                                    'a',
-                                    { href: 'http://youtube.com' },
-                                    React.createElement('img', { src: 'img/youtube-icon.png', style: socialIcons })
-                                )
-                            ),
-                            React.createElement(
-                                'li',
-                                { style: socialLI },
-                                React.createElement(
-                                    'a',
-                                    { href: 'http://instagram.com' },
-                                    React.createElement('img', { src: 'img/instagram-icon.png', style: socialIcons })
-                                )
-                            ),
-                            React.createElement(
-                                'li',
-                                { style: socialLI },
-                                React.createElement(
-                                    'a',
-                                    { href: 'http://twitter.com' },
-                                    React.createElement('img', { src: 'img/twitter-icon.png', style: socialIcons })
-                                )
-                            ),
-                            React.createElement(
-                                'li',
-                                { style: socialLI },
-                                React.createElement(
-                                    'a',
-                                    { href: 'http://facebook.com' },
-                                    React.createElement('img', { src: 'img/fb-icon.png', style: socialIcons })
-                                )
-                            )
+                            socialListItems
                         )
                     )
                 ),
@@ -23387,7 +23351,7 @@ var Header = React.createClass({
 
 module.exports = Header;
 
-},{"./HeaderSubTitle.jsx":211,"./HeaderTitle.jsx":212,"react":206,"react-router":44}],211:[function(require,module,exports){
+},{"./HeaderSubTitle.jsx":211,"./HeaderTitle.jsx":212,"./SocialIcons.jsx":213,"react":206,"react-router":44}],211:[function(require,module,exports){
 var React = require('react');
 
 var HeaderSubTitle = React.createClass({
@@ -23424,6 +23388,36 @@ module.exports = HeaderTitle;
 },{"react":206}],213:[function(require,module,exports){
 var React = require('react');
 
+var SocialListItem = React.createClass({
+    displayName: 'SocialListItem',
+
+    render: function () {
+        var socialLI = {
+            display: 'inline'
+        };
+        var socialIcons = {
+            width: '32px',
+            float: 'right',
+            marginLeft: '20px'
+        };
+
+        return React.createElement(
+            'li',
+            { style: socialLI },
+            React.createElement(
+                'a',
+                { href: this.props.url },
+                React.createElement('img', { src: this.props.src, style: socialIcons })
+            )
+        );
+    }
+});
+
+module.exports = SocialListItem;
+
+},{"react":206}],214:[function(require,module,exports){
+var React = require('react');
+
 var News = React.createClass({
     displayName: 'News',
 
@@ -23455,7 +23449,7 @@ var News = React.createClass({
 
 module.exports = News;
 
-},{"react":206}],214:[function(require,module,exports){
+},{"react":206}],215:[function(require,module,exports){
 var React = require('react');
 
 var Photos = React.createClass({
@@ -23472,11 +23466,11 @@ var Photos = React.createClass({
 
 module.exports = Photos;
 
-},{"react":206}],215:[function(require,module,exports){
+},{"react":206}],216:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Routes = require('./Routes.jsx');
 
 ReactDOM.render(React.createElement(Routes, null), document.getElementById('main'));
 
-},{"./Routes.jsx":208,"react":206,"react-dom":24}]},{},[215]);
+},{"./Routes.jsx":208,"react":206,"react-dom":24}]},{},[216]);
