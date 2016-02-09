@@ -23236,7 +23236,6 @@ module.exports = Routes;
 
 },{"./components/Base.jsx":209,"./components/News/News.jsx":213,"./components/Photos/Photos.jsx":214,"history/lib/createHashHistory":7,"react":206,"react-router":44}],209:[function(require,module,exports){
 var React = require('react');
-var Link = require('react-router').Link;
 var Header = require('./Header/Header.jsx');
 
 var Base = React.createClass({
@@ -23247,24 +23246,6 @@ var Base = React.createClass({
             'div',
             null,
             React.createElement(Header, { title: 'Country News', subtitle: 'Top stories in my country' }),
-            React.createElement(
-                'p',
-                null,
-                React.createElement(
-                    Link,
-                    { to: '/news' },
-                    'News'
-                )
-            ),
-            React.createElement(
-                'p',
-                null,
-                React.createElement(
-                    Link,
-                    { to: '/photos' },
-                    'Photos'
-                )
-            ),
             this.props.children
         );
     }
@@ -23272,10 +23253,11 @@ var Base = React.createClass({
 
 module.exports = Base;
 
-},{"./Header/Header.jsx":210,"react":206,"react-router":44}],210:[function(require,module,exports){
+},{"./Header/Header.jsx":210,"react":206}],210:[function(require,module,exports){
 var React = require('react');
 var HeaderTitle = require('./HeaderTitle.jsx');
 var HeaderSubTitle = require('./HeaderSubTitle.jsx');
+var Link = require('react-router').Link;
 
 var Header = React.createClass({
     displayName: 'Header',
@@ -23294,8 +23276,14 @@ var Header = React.createClass({
         };
         var socialIcons = {
             width: '32px',
-            float: 'left',
-            marginRight: '20px'
+            float: 'right',
+            marginLeft: '20px'
+        };
+        var navStyles = {
+            fontSize: '1.3em'
+        };
+        var textColor = {
+            color: '#FFF'
         };
 
         return React.createElement(
@@ -23315,29 +23303,79 @@ var Header = React.createClass({
                     ),
                     React.createElement(
                         'div',
-                        { className: 'col-xs-4 pull-right' },
+                        { className: 'col-xs-4 col-xs-offset-4 pull-right' },
                         React.createElement(
                             'ul',
                             { style: socialUL },
                             React.createElement(
                                 'li',
                                 { style: socialLI },
-                                React.createElement('img', { src: 'img/fb-icon.png', style: socialIcons })
+                                React.createElement(
+                                    'a',
+                                    { href: 'http://youtube.com' },
+                                    React.createElement('img', { src: 'img/youtube-icon.png', style: socialIcons })
+                                )
                             ),
                             React.createElement(
                                 'li',
                                 { style: socialLI },
-                                React.createElement('img', { src: 'img/twitter-icon.png', style: socialIcons })
+                                React.createElement(
+                                    'a',
+                                    { href: 'http://instagram.com' },
+                                    React.createElement('img', { src: 'img/instagram-icon.png', style: socialIcons })
+                                )
                             ),
                             React.createElement(
                                 'li',
                                 { style: socialLI },
-                                React.createElement('img', { src: 'img/instagram-icon.png', style: socialIcons })
+                                React.createElement(
+                                    'a',
+                                    { href: 'http://twitter.com' },
+                                    React.createElement('img', { src: 'img/twitter-icon.png', style: socialIcons })
+                                )
                             ),
                             React.createElement(
                                 'li',
                                 { style: socialLI },
-                                React.createElement('img', { src: 'img/youtube-icon.png', style: socialIcons })
+                                React.createElement(
+                                    'a',
+                                    { href: 'http://facebook.com' },
+                                    React.createElement('img', { src: 'img/fb-icon.png', style: socialIcons })
+                                )
+                            )
+                        )
+                    )
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'row' },
+                    React.createElement(
+                        'div',
+                        { className: 'col-xs-4 pull-right' },
+                        React.createElement(
+                            'nav',
+                            { className: 'navbar' },
+                            React.createElement(
+                                'ul',
+                                { className: 'nav navbar-nav navbar-right', style: navStyles },
+                                React.createElement(
+                                    'li',
+                                    null,
+                                    React.createElement(
+                                        Link,
+                                        { to: '/news', style: textColor },
+                                        'News'
+                                    )
+                                ),
+                                React.createElement(
+                                    'li',
+                                    null,
+                                    React.createElement(
+                                        Link,
+                                        { to: '/photos', style: textColor },
+                                        'Photos'
+                                    )
+                                )
                             )
                         )
                     )
@@ -23349,7 +23387,7 @@ var Header = React.createClass({
 
 module.exports = Header;
 
-},{"./HeaderSubTitle.jsx":211,"./HeaderTitle.jsx":212,"react":206}],211:[function(require,module,exports){
+},{"./HeaderSubTitle.jsx":211,"./HeaderTitle.jsx":212,"react":206,"react-router":44}],211:[function(require,module,exports){
 var React = require('react');
 
 var HeaderSubTitle = React.createClass({
@@ -23390,10 +23428,27 @@ var News = React.createClass({
     displayName: 'News',
 
     render: function () {
+        var newsStyles = {
+            marginTop: '-55px',
+            background: '#FFF'
+        };
+
         return React.createElement(
-            'h1',
-            null,
-            'News'
+            'div',
+            { className: 'container' },
+            React.createElement(
+                'div',
+                { className: 'row', style: newsStyles },
+                React.createElement(
+                    'div',
+                    { className: 'col-xs-12' },
+                    React.createElement(
+                        'h1',
+                        null,
+                        'News'
+                    )
+                )
+            )
         );
     }
 });

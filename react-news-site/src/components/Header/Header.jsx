@@ -1,6 +1,7 @@
 var React = require('react');
 var HeaderTitle = require('./HeaderTitle.jsx');
 var HeaderSubTitle = require('./HeaderSubTitle.jsx');
+var Link = require('react-router').Link;
 
 var Header = React.createClass({
     render: function() {
@@ -17,9 +18,15 @@ var Header = React.createClass({
         };
         var socialIcons = {
             width: '32px',
-            float: 'left',
-            marginRight: '20px'
+            float: 'right',
+            marginLeft: '20px'
         };
+        var navStyles = {
+            fontSize: '1.3em'
+        };
+        var textColor = {
+            color: '#FFF'
+        }
 
         return (
             <div style={headerStyles}>
@@ -29,13 +36,31 @@ var Header = React.createClass({
                             <HeaderTitle text={this.props.title} />
                             <HeaderSubTitle text={this.props.subtitle} />
                         </div>
-                        <div className="col-xs-4 pull-right">
+                        <div className="col-xs-4 col-xs-offset-4 pull-right">
                             <ul style={socialUL}>
-                                <li style={socialLI}><img src="img/fb-icon.png" style={socialIcons} /></li>
-                                <li style={socialLI}><img src="img/twitter-icon.png" style={socialIcons} /></li>
-                                <li style={socialLI}><img src="img/instagram-icon.png" style={socialIcons} /></li>
-                                <li style={socialLI}><img src="img/youtube-icon.png" style={socialIcons} /></li>
+                                <li style={socialLI}>
+                                    <a href="http://youtube.com"><img src="img/youtube-icon.png" style={socialIcons} /></a>
+                                </li>
+                                <li style={socialLI}>
+                                    <a href="http://instagram.com"><img src="img/instagram-icon.png" style={socialIcons} /></a>
+                                </li>
+                                <li style={socialLI}>
+                                    <a href="http://twitter.com"><img src="img/twitter-icon.png" style={socialIcons} /></a>
+                                </li>
+                                <li style={socialLI}>
+                                    <a href="http://facebook.com"><img src="img/fb-icon.png" style={socialIcons} /></a>
+                                </li>
                             </ul>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-xs-4 pull-right">
+                            <nav className="navbar">
+                                <ul className="nav navbar-nav navbar-right" style={navStyles}>
+                                    <li><Link to={'/news'} style={textColor}>News</Link></li>
+                                    <li><Link to={'/photos'} style={textColor}>Photos</Link></li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
