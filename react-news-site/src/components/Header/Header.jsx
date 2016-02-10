@@ -22,7 +22,9 @@ var Header = React.createClass({
             marginTop: '20px'
         };
         var navStyles = {
-            fontSize: '1.3em'
+            fontSize: '1.3em',
+            position: 'relative',
+            paddingBottom: '25px'
         };
         var textColor = {
             color: '#FFF'
@@ -49,7 +51,7 @@ var Header = React.createClass({
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-xs-4 pull-right">
+                        <div className="col-xs-6 pull-right">
                             <nav className="navbar">
                                 <ul className="nav navbar-nav navbar-right" style={navStyles}>
                                     <li><Link to={'/news'} style={textColor}>News</Link></li>

@@ -23234,7 +23234,7 @@ var Routes = React.createClass({
 
 module.exports = Routes;
 
-},{"./components/Base.jsx":209,"./components/News/News.jsx":214,"./components/Photos/Photos.jsx":215,"history/lib/createHashHistory":7,"react":206,"react-router":44}],209:[function(require,module,exports){
+},{"./components/Base.jsx":209,"./components/News/News.jsx":214,"./components/Photos/Photos.jsx":220,"history/lib/createHashHistory":7,"react":206,"react-router":44}],209:[function(require,module,exports){
 var React = require('react');
 var Header = require('./Header/Header.jsx');
 
@@ -23275,7 +23275,9 @@ var Header = React.createClass({
             marginTop: '20px'
         };
         var navStyles = {
-            fontSize: '1.3em'
+            fontSize: '1.3em',
+            position: 'relative',
+            paddingBottom: '25px'
         };
         var textColor = {
             color: '#FFF'
@@ -23315,7 +23317,7 @@ var Header = React.createClass({
                     { className: 'row' },
                     React.createElement(
                         'div',
-                        { className: 'col-xs-4 pull-right' },
+                        { className: 'col-xs-6 pull-right' },
                         React.createElement(
                             'nav',
                             { className: 'navbar' },
@@ -23417,6 +23419,21 @@ module.exports = SocialListItem;
 
 },{"react":206}],214:[function(require,module,exports){
 var React = require('react');
+var NewsList = require('./NewsList.jsx');
+
+var newsInfo = [{
+    "id": 1,
+    "src": "img/youtube-icon.png",
+    "maintitle": "Obesity in America",
+    "subtitle": "Why are Americans so fat?",
+    "content": "Us Americans are fat. On every corner there is a McDonalds or KFC. Michelle Obama wants Americans to become Vegan. Civil war and unres have sprung up due to this debate..."
+}, {
+    "id": 2,
+    "src": "img/twitter-icon.png",
+    "maintitle": "Title Two",
+    "subtitle": "Subtitle Two",
+    "content": "This is the news content for numer two."
+}];
 
 var News = React.createClass({
     displayName: 'News',
@@ -23424,22 +23441,28 @@ var News = React.createClass({
     render: function () {
         var newsStyles = {
             marginTop: '-55px',
-            background: '#FFF'
+            listStyleType: 'none',
+            paddingLeft: 0
         };
+
+        var newsListItems = newsInfo.map(function (item) {
+            return React.createElement(NewsList, { key: item.id, src: item.src,
+                maintitle: item.maintitle, subtitle: item.subtitle, content: item.content });
+        });
 
         return React.createElement(
             'div',
             { className: 'container' },
             React.createElement(
                 'div',
-                { className: 'row', style: newsStyles },
+                { className: 'row' },
                 React.createElement(
                     'div',
                     { className: 'col-xs-12' },
                     React.createElement(
-                        'h1',
-                        null,
-                        'News'
+                        'ul',
+                        { style: newsStyles },
+                        newsListItems
                     )
                 )
             )
@@ -23449,7 +23472,132 @@ var News = React.createClass({
 
 module.exports = News;
 
-},{"react":206}],215:[function(require,module,exports){
+},{"./NewsList.jsx":215,"react":206}],215:[function(require,module,exports){
+var React = require('react');
+var NewsListTitle = require('./NewsListTitle.jsx');
+var NewsListSubtitle = require('./NewsListSubtitle.jsx');
+var NewsListContent = require('./NewsListContent.jsx');
+var NewsListIcon = require('./NewsListIcon.jsx');
+
+var NewsList = React.createClass({
+    displayName: 'NewsList',
+
+    render: function () {
+        var panelStyles = {
+            marginTop: "-65px"
+        };
+
+        return React.createElement(
+            'li',
+            { className: 'panel panel-default' },
+            React.createElement(
+                'div',
+                { className: 'panel-body' },
+                React.createElement(
+                    'div',
+                    { className: 'row' },
+                    React.createElement(
+                        'div',
+                        { className: 'col-xs-2' },
+                        React.createElement(NewsListIcon, { text: this.props.src })
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'col-xs-10' },
+                        React.createElement(NewsListTitle, { text: this.props.maintitle }),
+                        React.createElement(NewsListSubtitle, { text: this.props.subtitle })
+                    )
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'row' },
+                    React.createElement(
+                        'div',
+                        { className: 'col-xs-8 col-xs-offset-2' },
+                        React.createElement(NewsListContent, { text: this.props.content })
+                    )
+                )
+            )
+        );
+    }
+});
+
+module.exports = NewsList;
+
+},{"./NewsListContent.jsx":216,"./NewsListIcon.jsx":217,"./NewsListSubtitle.jsx":218,"./NewsListTitle.jsx":219,"react":206}],216:[function(require,module,exports){
+var React = require('react');
+
+var NewsListContent = React.createClass({
+    displayName: 'NewsListContent',
+
+    render: function () {
+        return React.createElement(
+            'p',
+            null,
+            this.props.text
+        );
+    }
+});
+
+module.exports = NewsListContent;
+
+},{"react":206}],217:[function(require,module,exports){
+var React = require('react');
+
+var NewsListIcon = React.createClass({
+    displayName: 'NewsListIcon',
+
+    render: function () {
+        var iconStyles = {
+            width: '65px',
+            marginTop: '50%'
+        };
+
+        return React.createElement(
+            'div',
+            { className: 'col-xs-6 col-xs-offset-3' },
+            React.createElement('img', { src: this.props.text, style: iconStyles })
+        );
+    }
+});
+
+module.exports = NewsListIcon;
+
+},{"react":206}],218:[function(require,module,exports){
+var React = require('react');
+
+var NewsListSubtitle = React.createClass({
+    displayName: 'NewsListSubtitle',
+
+    render: function () {
+        return React.createElement(
+            'h4',
+            null,
+            this.props.text
+        );
+    }
+});
+
+module.exports = NewsListSubtitle;
+
+},{"react":206}],219:[function(require,module,exports){
+var React = require('react');
+
+var NewsListTitle = React.createClass({
+    displayName: 'NewsListTitle',
+
+    render: function () {
+        return React.createElement(
+            'h1',
+            null,
+            this.props.text
+        );
+    }
+});
+
+module.exports = NewsListTitle;
+
+},{"react":206}],220:[function(require,module,exports){
 var React = require('react');
 
 var Photos = React.createClass({
@@ -23466,11 +23614,11 @@ var Photos = React.createClass({
 
 module.exports = Photos;
 
-},{"react":206}],216:[function(require,module,exports){
+},{"react":206}],221:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Routes = require('./Routes.jsx');
 
 ReactDOM.render(React.createElement(Routes, null), document.getElementById('main'));
 
-},{"./Routes.jsx":208,"react":206,"react-dom":24}]},{},[216]);
+},{"./Routes.jsx":208,"react":206,"react-dom":24}]},{},[221]);
