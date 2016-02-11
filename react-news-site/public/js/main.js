@@ -23234,7 +23234,7 @@ var Routes = React.createClass({
 
 module.exports = Routes;
 
-},{"./components/Base.jsx":209,"./components/News/News.jsx":214,"./components/Photos/Photos.jsx":220,"history/lib/createHashHistory":7,"react":206,"react-router":44}],209:[function(require,module,exports){
+},{"./components/Base.jsx":209,"./components/News/News.jsx":214,"./components/Photos/Photos.jsx":221,"history/lib/createHashHistory":7,"react":206,"react-router":44}],209:[function(require,module,exports){
 var React = require('react');
 var Header = require('./Header/Header.jsx');
 
@@ -23423,16 +23423,28 @@ var NewsList = require('./NewsList.jsx');
 
 var newsInfo = [{
     "id": 1,
-    "src": "img/youtube-icon.png",
     "maintitle": "Obesity in America",
     "subtitle": "Why are Americans so fat?",
-    "content": "Us Americans are fat. On every corner there is a McDonalds or KFC. Michelle Obama wants Americans to become Vegan. Civil war and unres have sprung up due to this debate..."
+    "content": "Us Americans are fat. On every corner there is a McDonalds or KFC. Michelle Obama wants Americans to become Vegan. Civil war and unres have sprung up due to this debate...",
+    "src": "img/close.svg",
+    "photoThumb1": "http://placehold.it/300x300",
+    "photoThumb2": "http://placehold.it/300x300",
+    "photos": [{
+        "photo1": "http://placehold.it/125x125",
+        "photo2": "http://placehold.it/125x125"
+    }]
 }, {
     "id": 2,
-    "src": "img/twitter-icon.png",
-    "maintitle": "Title Two",
-    "subtitle": "Subtitle Two",
-    "content": "This is the news content for numer two."
+    "maintitle": "UX Designer",
+    "subtitle": "log | Smart Software Development. Great User Experience",
+    "content": "Bacon ipsum dolor amet frankfurter fatback capicola tail, kielbasa meatloaf salami spare ribs prosciutto kevin chicken pastrami. Sausage salami strip steak, tongue tenderloin short loin shankle short ribs meatball swine. Boudin andouille porchetta corned beef shoulder beef ribs rump ham hock spare ribs, fatback sausage turkey chicken cow. Andouille tri-tip ball tip, rump tenderloin chuck sirloin pork short ribs chicken short loin.",
+    "src": "img/bugherd.svg",
+    "photoThumb1": "http://placehold.it/300x300",
+    "photoThumb2": "http://placehold.it/300x300",
+    "photos": [{
+        "photo1": "http://placehold.it/150x150",
+        "photo2": "http://placehold.it/150x150"
+    }]
 }];
 
 var News = React.createClass({
@@ -23447,7 +23459,8 @@ var News = React.createClass({
 
         var newsListItems = newsInfo.map(function (item) {
             return React.createElement(NewsList, { key: item.id, src: item.src,
-                maintitle: item.maintitle, subtitle: item.subtitle, content: item.content });
+                maintitle: item.maintitle, subtitle: item.subtitle, content: item.content, photo1: item.photoThumb1,
+                photo2: item.photoThumb2, photos: item.photos });
         });
 
         return React.createElement(
@@ -23478,6 +23491,7 @@ var NewsListTitle = require('./NewsListTitle.jsx');
 var NewsListSubtitle = require('./NewsListSubtitle.jsx');
 var NewsListContent = require('./NewsListContent.jsx');
 var NewsListIcon = require('./NewsListIcon.jsx');
+var NewsPhoto = require('./NewsPhoto.jsx');
 
 var NewsList = React.createClass({
     displayName: 'NewsList',
@@ -23486,6 +23500,23 @@ var NewsList = React.createClass({
         var panelStyles = {
             marginTop: "-65px"
         };
+        // var Photos = this.props.photos;
+        // console.log(Photos);
+        // var photoThumbs = Photos.map(function(item) {
+        //     return (
+        //         <div>
+        //             <NewsPhoto key={item.id} photo1={item.photo1} />
+        //             <NewsPhoto key={item.id} photo2={item.photo2} />
+        //         </div>
+        //     );
+        // });
+        var photo1, photo2;
+        if (this.props.photo1) {
+            photo1 = React.createElement(NewsPhoto, { text: this.props.photo1 });
+        }
+        if (this.props.photo2) {
+            photo2 = React.createElement(NewsPhoto, { text: this.props.photo2 });
+        }
 
         return React.createElement(
             'li',
@@ -23516,6 +23547,16 @@ var NewsList = React.createClass({
                         { className: 'col-xs-8 col-xs-offset-2' },
                         React.createElement(NewsListContent, { text: this.props.content })
                     )
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'row' },
+                    React.createElement(
+                        'div',
+                        { className: 'col-xs-8 col-xs-offset-2' },
+                        photo1,
+                        photo2
+                    )
                 )
             )
         );
@@ -23524,7 +23565,7 @@ var NewsList = React.createClass({
 
 module.exports = NewsList;
 
-},{"./NewsListContent.jsx":216,"./NewsListIcon.jsx":217,"./NewsListSubtitle.jsx":218,"./NewsListTitle.jsx":219,"react":206}],216:[function(require,module,exports){
+},{"./NewsListContent.jsx":216,"./NewsListIcon.jsx":217,"./NewsListSubtitle.jsx":218,"./NewsListTitle.jsx":219,"./NewsPhoto.jsx":220,"react":206}],216:[function(require,module,exports){
 var React = require('react');
 
 var NewsListContent = React.createClass({
@@ -23600,6 +23641,29 @@ module.exports = NewsListTitle;
 },{"react":206}],220:[function(require,module,exports){
 var React = require('react');
 
+var NewsPhoto = React.createClass({
+    displayName: 'NewsPhoto',
+
+    render: function () {
+        var imageStyle = {
+            maxWidth: '100%',
+            boxShadow: '0 1px 10px #333',
+            borderRadius: '5px'
+        };
+
+        return React.createElement(
+            'div',
+            { className: 'col-xs-3' },
+            React.createElement('img', { src: this.props.text, className: '', style: imageStyle })
+        );
+    }
+});
+
+module.exports = NewsPhoto;
+
+},{"react":206}],221:[function(require,module,exports){
+var React = require('react');
+
 var Photos = React.createClass({
     displayName: 'Photos',
 
@@ -23614,11 +23678,11 @@ var Photos = React.createClass({
 
 module.exports = Photos;
 
-},{"react":206}],221:[function(require,module,exports){
+},{"react":206}],222:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Routes = require('./Routes.jsx');
 
 ReactDOM.render(React.createElement(Routes, null), document.getElementById('main'));
 
-},{"./Routes.jsx":208,"react":206,"react-dom":24}]},{},[221]);
+},{"./Routes.jsx":208,"react":206,"react-dom":24}]},{},[222]);
