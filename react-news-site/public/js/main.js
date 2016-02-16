@@ -23234,7 +23234,7 @@ var Routes = React.createClass({
 
 module.exports = Routes;
 
-},{"./components/Base.jsx":209,"./components/News/News.jsx":214,"./components/Photos/Photos.jsx":221,"history/lib/createHashHistory":7,"react":206,"react-router":44}],209:[function(require,module,exports){
+},{"./components/Base.jsx":209,"./components/News/News.jsx":214,"./components/Photos/Photos.jsx":222,"history/lib/createHashHistory":7,"react":206,"react-router":44}],209:[function(require,module,exports){
 var React = require('react');
 var Header = require('./Header/Header.jsx');
 
@@ -23664,25 +23664,89 @@ module.exports = NewsPhoto;
 },{"react":206}],221:[function(require,module,exports){
 var React = require('react');
 
+var PhotoImg = React.createClass({
+    displayName: 'PhotoImg',
+
+    render: function () {
+        var imageStyle = {
+            maxWidth: '100%',
+            boxShadow: '0 1px 10px #333',
+            borderRadius: '5px'
+        };
+
+        return React.createElement(
+            'div',
+            { className: 'col-xs-3' },
+            React.createElement('img', { src: this.props.img1, className: '', style: imageStyle })
+        );
+    }
+});
+
+module.exports = PhotoImg;
+
+},{"react":206}],222:[function(require,module,exports){
+var React = require('react');
+var PhotoImg = require('./PhotoImg.jsx');
+
+var photoList = [{
+    "id": 1,
+    "name": 1,
+    "photoThumb1": "http://placehold.it/400x400"
+}, {
+    "id": 2,
+    "name": 2,
+    "photoThumb1": "http://placehold.it/300x300"
+}];
+
 var Photos = React.createClass({
     displayName: 'Photos',
 
     render: function () {
+        var photoStyles = {
+            marginTop: '-55px',
+            listStyleType: 'none',
+            paddingLeft: 0
+        };
+
+        var photoImgs = photoList.map(function (item) {
+            return React.createElement(
+                'li',
+                null,
+                React.createElement(PhotoImg, { key: item.id, img1: item.photoThumb1 })
+            );
+        });
+
         return React.createElement(
-            'h1',
-            null,
-            'Photos'
+            'div',
+            { className: 'container' },
+            React.createElement(
+                'div',
+                { className: 'row' },
+                React.createElement(
+                    'div',
+                    { className: 'col-xs-12' },
+                    React.createElement(
+                        'ul',
+                        { style: photoStyles, className: 'panel panel-default' },
+                        React.createElement(
+                            'div',
+                            { className: 'panel-body' },
+                            photoImgs
+                        )
+                    )
+                )
+            )
         );
     }
 });
 
 module.exports = Photos;
 
-},{"react":206}],222:[function(require,module,exports){
+},{"./PhotoImg.jsx":221,"react":206}],223:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Routes = require('./Routes.jsx');
 
 ReactDOM.render(React.createElement(Routes, null), document.getElementById('main'));
 
-},{"./Routes.jsx":208,"react":206,"react-dom":24}]},{},[222]);
+},{"./Routes.jsx":208,"react":206,"react-dom":24}]},{},[223]);
