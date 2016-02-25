@@ -1,5 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var List = require('./components/List.jsx');
+var Calculator = require('./components/Calculator.jsx');
 
-ReactDOM.render(<List />, document.getElementById('ingredients'));
+ReactDOM.render(<Calculator />, document.getElementById('calc'));

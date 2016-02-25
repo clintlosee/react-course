@@ -7759,7 +7759,10 @@ var ReactDOMOption = {
       }
     });
 
-    nativeProps.children = content;
+    if (content) {
+      nativeProps.children = content;
+    }
+
     return nativeProps;
   }
 
@@ -13928,7 +13931,7 @@ module.exports = ReactUpdates;
 
 'use strict';
 
-module.exports = '0.14.6';
+module.exports = '0.14.7';
 },{}],86:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -15023,6 +15026,7 @@ var warning = require('fbjs/lib/warning');
  */
 var EventInterface = {
   type: null,
+  target: null,
   // currentTarget is set when dispatching; no use in copying it here
   currentTarget: emptyFunction.thatReturnsNull,
   eventPhase: null,
@@ -15056,8 +15060,6 @@ function SyntheticEvent(dispatchConfig, dispatchMarker, nativeEvent, nativeEvent
   this.dispatchConfig = dispatchConfig;
   this.dispatchMarker = dispatchMarker;
   this.nativeEvent = nativeEvent;
-  this.target = nativeEventTarget;
-  this.currentTarget = nativeEventTarget;
 
   var Interface = this.constructor.Interface;
   for (var propName in Interface) {
@@ -15068,7 +15070,11 @@ function SyntheticEvent(dispatchConfig, dispatchMarker, nativeEvent, nativeEvent
     if (normalize) {
       this[propName] = normalize(nativeEvent);
     } else {
-      this[propName] = nativeEvent[propName];
+      if (propName === 'target') {
+        this.target = nativeEventTarget;
+      } else {
+        this[propName] = nativeEvent[propName];
+      }
     }
   }
 
@@ -19026,54 +19032,90 @@ process.umask = function() { return 0; };
 
 },{}],159:[function(require,module,exports){
 var React = require('react');
-var ListItem = require('./ListItem.jsx');
 
-var ingredients = [{ "id": 1, "text": "ham" }, { "id": 2, "text": "cheese" }, { "id": 3, "text": "pickles" }];
+var Button = React.createClass({
+    displayName: 'Button',
 
-var List = React.createClass({
-    displayName: 'List',
-
-    render: function () {
-        var listItems = ingredients.map(function (item) {
-            return React.createElement(ListItem, { key: item.id, ingredient: item.text });
-        });
-
-        return React.createElement(
-            'ul',
-            null,
-            listItems
-        );
-    }
-});
-
-module.exports = List;
-
-},{"./ListItem.jsx":160,"react":157}],160:[function(require,module,exports){
-var React = require('react');
-
-var ListItem = React.createClass({
-    displayName: 'ListItem',
-
+    btnType: function (t) {
+        switch (t) {
+            case 'number':
+                return "btn-primary";
+                break;
+            case 'info':
+                return "btn-info";
+                break;
+            case 'clear':
+                return "btn-danger";
+                break;
+            case 'eval':
+                return "btn-success";
+                break;
+            default:
+                return "btn-primary";
+        }
+    },
     render: function () {
         return React.createElement(
-            'li',
-            null,
+            'div',
+            { className: 'col-xs-3' },
             React.createElement(
-                'h4',
-                null,
-                this.props.ingredient
+                'button',
+                { id: this.props.type, className: "btn btn-raised " + this.btnType(this.props.type), onClick: this.props.onClick },
+                this.props.value
             )
         );
     }
 });
 
-module.exports = ListItem;
+module.exports = Button;
 
-},{"react":157}],161:[function(require,module,exports){
+},{"react":157}],160:[function(require,module,exports){
+var React = require('react');
+var Button = require('./Button.jsx');
+
+var Calculator = React.createClass({
+    displayName: 'Calculator',
+
+    getInitialState: function () {
+        return { value: "" };
+    },
+    onClick: function () {},
+    render: function () {
+        return React.createElement(
+            'div',
+            { className: 'panel panel-default' },
+            React.createElement(
+                'div',
+                { className: 'panel-body' },
+                React.createElement('input', { type: '', className: 'form-control col-xs-12', placeholder: '', value: this.state.value }),
+                React.createElement(Button, { type: 'number', value: '1', onClick: this.onClick.bind(this, "1") }),
+                React.createElement(Button, { type: 'number', value: '2', onClick: this.onClick.bind(this, "2") }),
+                React.createElement(Button, { type: 'number', value: '3', onClick: this.onClick.bind(this, "3") }),
+                React.createElement(Button, { type: 'info', value: '+', onClick: this.onClick.bind(this, "+") }),
+                React.createElement(Button, { type: 'number', value: '4', onClick: this.onClick.bind(this, "4") }),
+                React.createElement(Button, { type: 'number', value: '5', onClick: this.onClick.bind(this, "5") }),
+                React.createElement(Button, { type: 'number', value: '6', onClick: this.onClick.bind(this, "6") }),
+                React.createElement(Button, { type: 'info', value: '-', onClick: this.onClick.bind(this, "-") }),
+                React.createElement(Button, { type: 'number', value: '7', onClick: this.onClick.bind(this, "7") }),
+                React.createElement(Button, { type: 'number', value: '8', onClick: this.onClick.bind(this, "8") }),
+                React.createElement(Button, { type: 'number', value: '9', onClick: this.onClick.bind(this, "9") }),
+                React.createElement(Button, { type: 'info', value: '/', onClick: this.onClick.bind(this, "/") }),
+                React.createElement(Button, { type: 'clear', value: 'C', onClick: this.onClick.bind(this, "C") }),
+                React.createElement(Button, { type: 'number', value: '0', onClick: this.onClick.bind(this, "0") }),
+                React.createElement(Button, { type: 'eval', value: '=', onClick: this.onClick.bind(this, "=") }),
+                React.createElement(Button, { type: 'info', value: '*', onClick: this.onClick.bind(this, "*") })
+            )
+        );
+    }
+});
+
+module.exports = Calculator;
+
+},{"./Button.jsx":159,"react":157}],161:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
-var List = require('./components/List.jsx');
+var Calculator = require('./components/Calculator.jsx');
 
-ReactDOM.render(React.createElement(List, null), document.getElementById('ingredients'));
+ReactDOM.render(React.createElement(Calculator, null), document.getElementById('calc'));
 
-},{"./components/List.jsx":159,"react":157,"react-dom":1}]},{},[161]);
+},{"./components/Calculator.jsx":160,"react":157,"react-dom":1}]},{},[161]);
