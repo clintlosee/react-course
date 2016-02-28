@@ -19055,12 +19055,20 @@ var Button = React.createClass({
         }
     },
     render: function () {
+        var btnStyle = {
+            padding: '20px',
+            width: '100%'
+        };
+        var colStyle = {
+            padding: '0',
+            border: '1px solid #666'
+        };
         return React.createElement(
             'div',
-            { className: 'col-xs-3' },
+            { className: 'col-xs-3', style: colStyle },
             React.createElement(
                 'button',
-                { id: this.props.type, className: "btn btn-raised " + this.btnType(this.props.type), onClick: this.props.onClick },
+                { style: btnStyle, id: this.props.type, className: "btn " + this.btnType(this.props.type), onClick: this.props.onClick },
                 this.props.value
             )
         );
@@ -19089,40 +19097,92 @@ var Calculator = React.createClass({
     },
     onChange: function (e) {
         var val = e.target.value;
-
         this.setState({ value: val });
     },
     onEvaluate: function () {
         var val = this.state.value;
+        var sign, pos, fn, sn;
 
-        // Addition
         if (val.indexOf('+') !== -1) {
-            var pos = val.indexOf('+');
-            if (pos === 0 || pos === val.length - 1) {
-                this.setState({ value: '' });
-            } else {
-                var fn = parseInt(val.substring(0, pos));
-                var sn = parseInt(val.substring(pos + 1));
-                this.setState({ value: fn + sn });
-            }
+            sign = '+';
+        } else if (val.indexOf('-') !== -1) {
+            sign = '-';
+        } else if (val.indexOf('*') !== -1) {
+            sign = '*';
+        } else if (val.indexOf('/') !== -1) {
+            sign = '/';
         }
 
-        // Subtraction
-
-        // Multiplication
-
-        // Division
+        switch (sign) {
+            case '+':
+                pos = val.indexOf('+');
+                if (pos === 0 || pos === val.length - 1) {
+                    this.setState({ value: '' });
+                } else {
+                    fn = parseInt(val.substring(0, pos));
+                    sn = parseInt(val.substring(pos + 1));
+                    this.setState({ value: fn + sn });
+                }
+                break;
+            case '-':
+                pos = val.indexOf('-');
+                if (pos === 0 || pos === val.length - 1) {
+                    this.setState({ value: '' });
+                } else {
+                    fn = parseInt(val.substring(0, pos));
+                    sn = parseInt(val.substring(pos + 1));
+                    this.setState({ value: fn - sn });
+                }
+                break;
+            case '*':
+                pos = val.indexOf('*');
+                if (pos === 0 || pos === val.length - 1) {
+                    this.setState({ value: '' });
+                } else {
+                    fn = parseInt(val.substring(0, pos));
+                    sn = parseInt(val.substring(pos + 1));
+                    this.setState({ value: fn * sn });
+                }
+                break;
+            case '/':
+                pos = val.indexOf('/');
+                if (pos === 0 || pos === val.length - 1) {
+                    this.setState({ value: '' });
+                } else {
+                    fn = parseInt(val.substring(0, pos));
+                    sn = parseInt(val.substring(pos + 1));
+                    this.setState({ value: fn / sn });
+                }
+                break;
+            default:
+                this.setState({ value: '' });
+        }
     },
     render: function () {
+        var colStyle = {
+            padding: '0'
+        };
+        var panelStyle = {
+            marginTop: '20px'
+        };
         return React.createElement(
             'div',
-            { className: 'panel panel-default' },
+            { className: 'panel panel-default', style: panelStyle },
+            React.createElement(
+                'div',
+                { className: 'panel-heading text-center' },
+                React.createElement(
+                    'h3',
+                    null,
+                    'React Calculator'
+                )
+            ),
             React.createElement(
                 'div',
                 { className: 'panel-body' },
                 React.createElement(
                     'div',
-                    { className: 'col-xs-12' },
+                    { className: 'col-xs-12', style: colStyle },
                     React.createElement(
                         'div',
                         { className: 'form-group' },
