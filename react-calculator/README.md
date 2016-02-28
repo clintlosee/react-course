@@ -1,7 +1,9 @@
-# React-Skeleton
+# React-Calculator
 
 ### Project Development Instructions
-This is a starter application for React projects. It is based on React and NodeJS.
+This is a React calculator application that is based on React and NodeJS.
+
+View the demo here: [DEMO](http://projects.clintlosee.com/React-Calculator/)
 
 To use this application, you must install NodeJS.
 `cd` into your desired directory and then `git clone` the repository.
