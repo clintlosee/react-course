@@ -60,7 +60,7 @@ app.post('/ingredients', function(req, res) {
 // SEND USERS TO FRONTEND -----------
 // has to be registered after any API ROUTES
 app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/public/index.html'));
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 // START THE SERVER ---------------
