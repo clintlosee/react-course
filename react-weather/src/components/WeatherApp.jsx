@@ -37,14 +37,13 @@ var WeatherApp = React.createClass({
                                         city={this.state.weather.city.name}
                                         country={this.state.weather.city.country}
                                         iconDesc={this.state.weather.list[0].weather[0].description}
+                                        icon={this.state.weather.list[0].weather[0].icon}
+                                        iconID={this.state.weather.list[0].weather[0].id}
                                         date={this.state.weather.list[0].dt_txt}
                                         temp={this.state.weather.list[0].main.temp}
                                         windSpeed={this.state.weather.list[0].wind.speed}
                                         windAngle={this.state.weather.list[0].wind.deg}
-                                        icon={this.state.weather.list[0].weather[0].icon}
-                                        iconID={this.state.weather.list[0].weather[0].id}
                                         units={this.state.units}
-                                        changeUnits={this.changeUnits}
                                     />
                                 </div>
                             );

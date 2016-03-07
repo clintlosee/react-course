@@ -23648,18 +23648,63 @@ var TodayWeatherBox = React.createClass({
     displayName: 'TodayWeatherBox',
 
     tempUnit: function (unit) {
+        var deg = '&deg;';
         if (unit === 'metric') {
-            return '°C';
+            return '°';
         } else if (unit === 'imperial') {
-            return '°F';
+            return '°';
+        }
+    },
+    iconImage: function (iconNumber) {
+        var icon = 'wi ';
+        switch (iconNumber) {
+            case '01d':
+                // day clear-sunny
+                return icon += 'wi-day-sunny';
+                break;
+            case '01n':
+                // night clear
+                return icon += 'wi-night-clear';
+                break;
+            case '03d':
+                // day broken clouds
+                return icon += 'wi-day-cloudy';
+                break;
+            case '03n':
+                // night broken clouds
+                return icon += 'wi-night-alt-cloudy';
+                break;
+            case '04d':
+                // day broken clouds
+                return icon += 'wi-day-cloudy';
+                break;
+            case '04n':
+                // night broken clouds
+                return icon += 'wi-night-alt-cloudy';
+                break;
+            default:
+                break;
         }
     },
     render: function () {
         var textStyle = {
             color: '#FFF'
         };
-
         // textShadow: '0 1px 1px #000'
+        var iconStyle = {
+            fontSize: '7em',
+            marginTop: '15px',
+            marginBottom: '10px'
+        };
+        var tempStyle = {
+            fontSize: '6em',
+            fontWeight: 'bold'
+        };
+        var rowStyle = {
+            marginTop: '20px',
+            marginBottom: '20px'
+        };
+
         return React.createElement(
             'div',
             null,
@@ -23696,15 +23741,19 @@ var TodayWeatherBox = React.createClass({
                 { className: 'row' },
                 React.createElement(
                     'div',
-                    { className: 'col-xs-12 text-center', style: textStyle },
+                    { className: 'col-xs-12 text-center', style: $.extend({}, textStyle, rowStyle) },
                     React.createElement(
                         'div',
-                        { className: 'col-xs-5 col-xs-offset-4' },
+                        { className: 'col-xs-2 col-xs-offset-1' },
+                        React.createElement('i', { className: this.iconImage(this.props.icon), style: iconStyle })
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'col-xs-6 col-xs-offset-3' },
                         React.createElement(
                             'h1',
-                            null,
+                            { style: tempStyle },
                             Math.round(this.props.temp),
-                            ' ',
                             this.tempUnit(this.props.units)
                         )
                     )
@@ -23764,14 +23813,13 @@ var WeatherApp = React.createClass({
                                     city: this.state.weather.city.name,
                                     country: this.state.weather.city.country,
                                     iconDesc: this.state.weather.list[0].weather[0].description,
+                                    icon: this.state.weather.list[0].weather[0].icon,
+                                    iconID: this.state.weather.list[0].weather[0].id,
                                     date: this.state.weather.list[0].dt_txt,
                                     temp: this.state.weather.list[0].main.temp,
                                     windSpeed: this.state.weather.list[0].wind.speed,
                                     windAngle: this.state.weather.list[0].wind.deg,
-                                    icon: this.state.weather.list[0].weather[0].icon,
-                                    iconID: this.state.weather.list[0].weather[0].id,
-                                    units: this.state.units,
-                                    changeUnits: this.changeUnits
+                                    units: this.state.units
                                 })
                             );
                         }
