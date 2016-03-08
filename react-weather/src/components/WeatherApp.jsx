@@ -2,10 +2,6 @@ var React = require('react');
 var HTTP = require('../services/httpserver');
 var TodayWeatherBox = require('./TodayWeatherBox.jsx');
 
-var boxStyle = {
-  backgroundColor: "#79b8af"
-};
-
 var WeatherApp = React.createClass({
     getInitialState: function(){
         return({
@@ -25,6 +21,14 @@ var WeatherApp = React.createClass({
         }.bind(this));
     },
     render: function() {
+        var boxStyle = {};
+
+        if (this.props.bgColor) {
+            boxStyle.background = this.props.bgColor;
+        } else {
+            boxStyle.background = '#79b8af';
+        }
+
         return (
             <div className="row">
                 <div className="col-sm-4">
