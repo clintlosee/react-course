@@ -1,5 +1,5 @@
 var React = require('react');
-var transparentBg = require('../styles').transparentBg;
+var Prompt = require('../components/Prompt');
 
 var PromptContainer = React.createClass({
     contextTypes: {
@@ -11,12 +11,12 @@ var PromptContainer = React.createClass({
             username: ''
         }
     },
-    onUpdateUser: function(e) {
+    handleUpdateUser: function(e) {
         this.setState({
             username: e.target.value
         });
     },
-    onSubmitUser: function(e) {
+    handleSubmitUser: function(e) {
         e.preventDefault();
         var username = this.state.username;
         this.setState({
@@ -37,28 +37,11 @@ var PromptContainer = React.createClass({
     },
     render: function() {
         return (
-            <div className="jumbotron col-sm-6 col-sm-offset-3 text-center" style={transparentBg}>
-                <h1>{this.props.route.header}</h1>
-                <div className="col-sm-12">
-                    <form onSubmit={this.onSubmitUser}>
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={this.state.username}
-                                onChange={this.onUpdateUser}
-                                placeholder="GitHub Username" />
-                        </div>
-                        <div className="form-group col-sm-4 col-sm-offset-4">
-                            <button
-                                type="submit"
-                                className="btn btn-block btn-success">
-                                Continue
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            <Prompt
+                header={this.props.route.header}
+                onSubmitUser={this.handleSubmitUser}
+                onUpdateUser={this.handleUpdateUser}
+                username={this.state.username} />
         );
     }
 });
