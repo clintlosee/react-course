@@ -1,4 +1,9 @@
 var React = require('react');
+var textStyle = require('../styles').textStyle;
+var rowStyle = require('../styles').rowStyle;
+var iconStyle = require('../styles').iconStyle;
+var tempStyle = require('../styles').tempStyle;
+var windStyle = require('../styles').windStyle;
 
 var TodayWeatherBox = React.createClass({
     tempUnit: function(unit) {
@@ -17,6 +22,12 @@ var TodayWeatherBox = React.createClass({
                 break;
             case '01n': // night clear
                 return icon += 'wi-night-clear';
+                break;
+            case '02d': // day few clouds
+                return icon += 'wi-cloudy';
+                break;
+            case '02n': // night few clouds
+                return icon += 'wi-cloudy';
                 break;
             case '03d': // day broken clouds
                 return icon += 'wi-day-cloudy';
@@ -115,28 +126,6 @@ var TodayWeatherBox = React.createClass({
         }
     },
     render: function() {
-        var textStyle = {
-            color: '#FFF',
-            // textShadow: '0 1px 1px #000'
-        };
-        var iconStyle = {
-            fontSize: '7em',
-            marginTop: '15px',
-            marginBottom: '10px'
-        };
-        var tempStyle = {
-            fontSize: '6em',
-            fontWeight: 'bold'
-        };
-        var rowStyle = {
-            marginTop: '20px',
-            marginBottom: '20px'
-        };
-        var windStyle = {
-            fontSize: '2em',
-            paddingRight: '10px'
-        };
-
         return (
             <div>
                 <div className="row">
@@ -161,11 +150,13 @@ var TodayWeatherBox = React.createClass({
                 </div>
                 <div className="row">
                     <div className="col-xs-12 text-center" style={$.extend({}, textStyle, rowStyle)}>
-                        <div className="col-xs-6">
-                            <i className={this.windCalc(this.props.windAngle).class} style={windStyle}></i>
-                            <span>{this.windCalc(this.props.windAngle).direction}</span>
+                        <div className="col-xs-6 text-center">
+                            <div className="col-xs-1">
+                                <i className={this.windCalc(this.props.windAngle).class} style={windStyle}></i>
+                            </div>
+                            <span className="col-xs-3" style={{lineHeight: '2.8em'}}>{this.windCalc(this.props.windAngle).direction}</span>
                         </div>
-                        <div className="col-xs-6">
+                        <div className="col-xs-6 text-center">
                             <i className="wi wi-strong-wind" style={windStyle}></i>
                             <span>{Math.round(this.props.windSpeed)}{this.speedUnit(this.props.units)}</span>
                         </div>

@@ -1,6 +1,8 @@
 var React = require('react');
 var HTTP = require('../services/httpserver');
 var TodayWeatherBox = require('./TodayWeatherBox.jsx');
+var SearchBox = require('./SearchBox.jsx');
+var ForecastWeatherBox = require('./ForecastWeatherBox.jsx');
 
 var WeatherApp = React.createClass({
     getInitialState: function(){
@@ -12,6 +14,13 @@ var WeatherApp = React.createClass({
             units: "imperial",
             loading: true
         });
+    },
+    handleSearch: function(search) {
+        //Send a request to OpenWeatherAPI with search criteria
+        HTTP.get(search + '&units=' + this.state.units).then(function(data){
+            this.setState({weather: data, search: search, loading: false});
+            console.log(this.state.weather);
+        }.bind(this));
     },
     componentDidMount: function(){
         //Send a request to OpenWeatherAPI with the default city "Salt Lake City"
@@ -28,11 +37,12 @@ var WeatherApp = React.createClass({
         } else {
             boxStyle.background = '#79b8af';
         }
-
+        // tempList={this.state.weather.list}
         return (
             <div className="row">
                 <div className="col-sm-4">
                     <div className="col-sm-12" style={boxStyle}>
+                        <SearchBox onSearch={this.handleSearch} />
                         {(() => {
                         if (this.state.weather) {
                             return (
@@ -49,6 +59,8 @@ var WeatherApp = React.createClass({
                                         windAngle={this.state.weather.list[0].wind.deg}
                                         units={this.state.units}
                                     />
+
+                                    <ForecastWeatherBox />
                                 </div>
                             );
                         }
