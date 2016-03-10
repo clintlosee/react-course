@@ -21,3 +21,6 @@ To compile JS files, run:
 * [Watchify](https://github.com/substack/watchify)
 * [Babelify](https://github.com/babel/babelify)
 * [GIT](http://git-scm.com/)
+
+##### Weather Icons Used
+* [Weather Icons](http://erikflowers.github.io/weather-icons/)
