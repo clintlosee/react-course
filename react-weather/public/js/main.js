@@ -19423,19 +19423,169 @@ process.umask = function() { return 0; };
 
 },{}],160:[function(require,module,exports){
 var React = require('react');
+var ForecastWeatherBoxItem = require('./ForecastWeatherBoxItem.jsx');
+var forecastStyle = require('../styles').forecastStyle;
 
 var ForecastWeatherBox = React.createClass({
-    displayName: 'ForecastWeatherBox',
+  displayName: 'ForecastWeatherBox',
 
-    render: function () {
-        return React.createElement('div', null);
-    }
+  render: function () {
+    var forecastWeatherBoxItem = this.props.tempList.map(function (item, key) {
+      return React.createElement(ForecastWeatherBoxItem, {
+        key: key,
+        units: item.units,
+        date: item.dt,
+        minTemp: item.temp.min,
+        maxTemp: item.temp.max,
+        icon: item.weather[0].icon
+      });
+    });
+
+    return React.createElement(
+      'div',
+      { className: 'row' },
+      React.createElement(
+        'ul',
+        { className: 'list-group', style: forecastStyle },
+        forecastWeatherBoxItem.slice(1, 6)
+      )
+    );
+  }
 });
 
 module.exports = ForecastWeatherBox;
 
-},{"react":157}],161:[function(require,module,exports){
+},{"../styles":167,"./ForecastWeatherBoxItem.jsx":161,"react":157}],161:[function(require,module,exports){
 var React = require('react');
+var forecastIconStyle = require('../styles').forecastIconStyle;
+
+var ForecastWeatherBoxItem = React.createClass({
+    displayName: 'ForecastWeatherBoxItem',
+
+    iconImage: function (iconNumber) {
+        var icon = 'wi ';
+        switch (iconNumber) {
+            case '01d':
+                // day clear-sunny
+                return icon += 'wi-day-sunny';
+                break;
+            case '01n':
+                // night clear
+                return icon += 'wi-night-clear';
+                break;
+            case '02d':
+                // day few clouds
+                return icon += 'wi-cloudy';
+                break;
+            case '02n':
+                // night few clouds
+                return icon += 'wi-cloudy';
+                break;
+            case '03d':
+                // day broken clouds
+                return icon += 'wi-day-cloudy';
+                break;
+            case '03n':
+                // night broken clouds
+                return icon += 'wi-night-alt-cloudy';
+                break;
+            case '04d':
+                // day broken clouds
+                return icon += 'wi-day-cloudy';
+                break;
+            case '04n':
+                // night broken clouds
+                return icon += 'wi-night-alt-cloudy';
+                break;
+            case '09d':
+                // day shower rain
+                return icon += 'wi-day-showers';
+                break;
+            case '09n':
+                // night shower rain
+                return icon += 'wi-night-alt-showers';
+                break;
+            case '10d':
+                // day rain
+                return icon += 'wi-day-rain';
+                break;
+            case '10n':
+                // night rain
+                return icon += 'wi-night-alt-rain';
+                break;
+            case '11d':
+                // day thunderstorm
+                return icon += 'wi-day-thunderstorm';
+                break;
+            case '11n':
+                // night thunderstorm
+                return icon += 'wi-night-alt-thunderstorm';
+                break;
+            case '13d':
+                // day snow
+                return icon += 'wi-day-snow';
+                break;
+            case '13n':
+                // night snow
+                return icon += 'wi-night-alt-snow';
+                break;
+            case '50d':
+                // day Haze/mist
+                return icon += 'wi-day-haze';
+                break;
+            case '50n':
+                // night haze/mist
+                return icon += 'wi-night-fog';
+                break;
+            default:
+                break;
+        }
+    },
+    dateFormat: function (time) {
+        var date = new Date(time * 1000);
+        var month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var monthString = month[date.getMonth()];
+        return date.getDate() + ' ' + monthString;
+    },
+    render: function () {
+        var listStyle = {
+            listStyleType: 'none',
+            padding: '20px 0',
+            lineHeight: '0',
+            borderRight: '1px solid #999',
+            borderLeft: '1px solid #999',
+            borderBottom: '1px solid #999'
+        };
+        return React.createElement(
+            'li',
+            { className: '', style: listStyle },
+            React.createElement(
+                'div',
+                { className: 'col-xs-4 text-center' },
+                this.dateFormat(this.props.date)
+            ),
+            React.createElement(
+                'div',
+                { className: 'col-xs-4 text-center' },
+                React.createElement('i', { className: this.iconImage(this.props.icon), style: forecastIconStyle })
+            ),
+            React.createElement(
+                'div',
+                { className: 'col-xs-4 text-center' },
+                Math.round(this.props.minTemp),
+                '° / ',
+                Math.round(this.props.maxTemp),
+                '°'
+            )
+        );
+    }
+});
+
+module.exports = ForecastWeatherBoxItem;
+
+},{"../styles":167,"react":157}],162:[function(require,module,exports){
+var React = require('react');
+var searchFormBox = require('../styles').searchFormBox;
 
 var SearchBox = React.createClass({
     displayName: 'SearchBox',
@@ -19461,8 +19611,8 @@ var SearchBox = React.createClass({
                         React.createElement('input', {
                             type: 'text',
                             placeholder: 'Search...',
-                            className: 'col-xs-12 form-control',
-                            style: { background: '#ec3333', border: 'none', color: '#FFF' },
+                            className: 'col-xs-12 form-control searchForm',
+                            style: searchFormBox,
                             onChange: this.onChange,
                             ref: 'searchIn' })
                     )
@@ -19474,7 +19624,7 @@ var SearchBox = React.createClass({
 
 module.exports = SearchBox;
 
-},{"react":157}],162:[function(require,module,exports){
+},{"../styles":167,"react":157}],163:[function(require,module,exports){
 var React = require('react');
 var textStyle = require('../styles').textStyle;
 var rowStyle = require('../styles').rowStyle;
@@ -19716,7 +19866,7 @@ var TodayWeatherBox = React.createClass({
 
 module.exports = TodayWeatherBox;
 
-},{"../styles":166,"react":157}],163:[function(require,module,exports){
+},{"../styles":167,"react":157}],164:[function(require,module,exports){
 var React = require('react');
 var HTTP = require('../services/httpserver');
 var TodayWeatherBox = require('./TodayWeatherBox.jsx');
@@ -19733,21 +19883,29 @@ var WeatherApp = React.createClass({
             search: "",
             weather: null,
             units: "imperial",
-            loading: true
+            loading: true,
+            location: this.props.location || "American Fork"
         };
     },
     handleSearch: function (search) {
         //Send a request to OpenWeatherAPI with search criteria
         HTTP.get(search + '&units=' + this.state.units).then(function (data) {
             this.setState({ weather: data, search: search, loading: false });
-            console.log(this.state.weather);
+        }.bind(this));
+
+        HTTP.getDaily(search + '&units=' + this.state.units).then(function (data) {
+            this.setState({ dailyWeather: data, loading: false });
         }.bind(this));
     },
     componentDidMount: function () {
         //Send a request to OpenWeatherAPI with the default city "Salt Lake City"
-        HTTP.get('SaltLakeCity&units=' + this.state.units).then(function (data) {
+        HTTP.get(this.state.location + '&units=' + this.state.units).then(function (data) {
             this.setState({ weather: data, loading: false });
-            console.log(this.state.weather);
+        }.bind(this));
+    },
+    componentWillMount: function () {
+        HTTP.getDaily(this.state.location + '&units=' + this.state.units).then(function (data) {
+            this.setState({ dailyWeather: data, loading: false });
         }.bind(this));
     },
     render: function () {
@@ -19764,7 +19922,7 @@ var WeatherApp = React.createClass({
             { className: 'row' },
             React.createElement(
                 'div',
-                { className: 'col-sm-4' },
+                { className: 'col-sm-4 col-sm-offset-4' },
                 React.createElement(
                     'div',
                     { className: 'col-sm-12', style: boxStyle },
@@ -19785,8 +19943,23 @@ var WeatherApp = React.createClass({
                                     windSpeed: this.state.weather.list[0].wind.speed,
                                     windAngle: this.state.weather.list[0].wind.deg,
                                     units: this.state.units
-                                }),
-                                React.createElement(ForecastWeatherBox, null)
+                                })
+                            );
+                        }
+                    })()
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'col-sm-12' },
+                    (() => {
+                        if (this.state.dailyWeather) {
+                            return React.createElement(
+                                'div',
+                                null,
+                                React.createElement(ForecastWeatherBox, {
+                                    tempList: this.state.dailyWeather.list,
+                                    units: this.state.units
+                                })
                             );
                         }
                     })()
@@ -19798,23 +19971,28 @@ var WeatherApp = React.createClass({
 
 module.exports = WeatherApp;
 
-},{"../services/httpserver":165,"./ForecastWeatherBox.jsx":160,"./SearchBox.jsx":161,"./TodayWeatherBox.jsx":162,"react":157}],164:[function(require,module,exports){
+},{"../services/httpserver":166,"./ForecastWeatherBox.jsx":160,"./SearchBox.jsx":162,"./TodayWeatherBox.jsx":163,"react":157}],165:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 // var Routes = require('./Routes.jsx'); // If I want to do any routing
 var WeatherApp = require('./components/WeatherApp.jsx');
 
 // ReactDOM.render(<Routes />, document.getElementById('app'));
-ReactDOM.render(React.createElement(WeatherApp, { bgColor: '#ec4444' }), document.getElementById('app'));
+ReactDOM.render(React.createElement(WeatherApp, { bgColor: '#ec4444', location: 'Salt Lake City' }), document.getElementById('app'));
 
-},{"./components/WeatherApp.jsx":163,"react":157,"react-dom":1}],165:[function(require,module,exports){
+},{"./components/WeatherApp.jsx":164,"react":157,"react-dom":1}],166:[function(require,module,exports){
 var Fetch = require('whatwg-fetch');
-var baseUrl = "http://api.openweathermap.org/data/2.5/forecast?q=";
+var baseUrl = "http://api.openweathermap.org/data/2.5/forecast";
 var apiKey = "&appid=4a6668c79e08aefe81682b49d635b757";
 
 var service = {
     get: function (url) {
-        return fetch(baseUrl + url + apiKey).then(function (res) {
+        return fetch(baseUrl + '?q=' + url + apiKey).then(function (res) {
+            return res.json();
+        });
+    },
+    getDaily: function (url) {
+        return fetch(baseUrl + '/daily?q=' + url + apiKey).then(function (res) {
             return res.json();
         });
     }
@@ -19822,7 +20000,7 @@ var service = {
 
 module.exports = service;
 
-},{"whatwg-fetch":159}],166:[function(require,module,exports){
+},{"whatwg-fetch":159}],167:[function(require,module,exports){
 var styles = {
     transparentBg: {
         background: 'transparent'
@@ -19841,15 +20019,30 @@ var styles = {
         fontWeight: 'bold'
     },
     rowStyle: {
-        marginTop: '20px',
-        marginBottom: '20px'
+        marginTop: '10px',
+        marginBottom: '10px'
     },
     windStyle: {
         fontSize: '2em',
         padding: '5px'
+    },
+    forecastIconStyle: {
+        fontSize: '1.5em',
+        lineHeight: '0'
+    },
+    searchFormBox: {
+        background: 'none',
+        border: 'none',
+        borderBottom: '1px solid #ddd',
+        borderRadius: '0',
+        color: '#FFF'
+    },
+    forecastStyle: {
+        background: '#EFEFEF',
+        color: '#666'
     }
 };
 
 module.exports = styles;
 
-},{}]},{},[164]);
+},{}]},{},[165]);

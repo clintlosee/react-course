@@ -12,21 +12,29 @@ var WeatherApp = React.createClass({
             search: "",
             weather: null,
             units: "imperial",
-            loading: true
+            loading: true,
+            location: this.props.location || "American Fork"
         });
     },
     handleSearch: function(search) {
         //Send a request to OpenWeatherAPI with search criteria
         HTTP.get(search + '&units=' + this.state.units).then(function(data){
             this.setState({weather: data, search: search, loading: false});
-            console.log(this.state.weather);
+        }.bind(this));
+
+        HTTP.getDaily(search + '&units=' + this.state.units).then(function(data){
+            this.setState({dailyWeather: data, loading: false});
         }.bind(this));
     },
     componentDidMount: function(){
         //Send a request to OpenWeatherAPI with the default city "Salt Lake City"
-        HTTP.get('SaltLakeCity&units=' + this.state.units).then(function(data){
+        HTTP.get(this.state.location + '&units=' + this.state.units).then(function(data){
             this.setState({weather: data, loading: false});
-            console.log(this.state.weather);
+        }.bind(this));
+    },
+    componentWillMount: function() {
+        HTTP.getDaily(this.state.location + '&units=' + this.state.units).then(function(data){
+            this.setState({dailyWeather: data, loading: false});
         }.bind(this));
     },
     render: function() {
@@ -40,7 +48,7 @@ var WeatherApp = React.createClass({
         // tempList={this.state.weather.list}
         return (
             <div className="row">
-                <div className="col-sm-4">
+                <div className="col-sm-4 col-sm-offset-4">
                     <div className="col-sm-12" style={boxStyle}>
                         <SearchBox onSearch={this.handleSearch} />
                         {(() => {
@@ -59,8 +67,20 @@ var WeatherApp = React.createClass({
                                         windAngle={this.state.weather.list[0].wind.deg}
                                         units={this.state.units}
                                     />
-
-                                    <ForecastWeatherBox />
+                                </div>
+                            );
+                        }
+                        })()}
+                    </div>
+                    <div className="col-sm-12">
+                        {(() => {
+                        if (this.state.dailyWeather) {
+                            return (
+                                <div>
+                                    <ForecastWeatherBox 
+                                        tempList={this.state.dailyWeather.list}
+                                        units={this.state.units}
+                                    />
                                 </div>
                             );
                         }

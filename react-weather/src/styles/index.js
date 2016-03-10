@@ -16,12 +16,27 @@ var styles = {
         fontWeight: 'bold'
     },
     rowStyle: {
-        marginTop: '20px',
-        marginBottom: '20px'
+        marginTop: '10px',
+        marginBottom: '10px'
     },
     windStyle: {
         fontSize: '2em',
         padding: '5px'
+    },
+    forecastIconStyle: {
+        fontSize: '1.5em',
+        lineHeight: '0'
+    },
+    searchFormBox: {
+        background: 'none', 
+        border: 'none',
+        borderBottom: '1px solid #ddd',
+        borderRadius: '0',
+        color: '#FFF'
+    },
+    forecastStyle: {
+        background: '#EFEFEF',
+        color: '#666'
     }
 }
 

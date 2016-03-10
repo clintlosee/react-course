@@ -4,4 +4,4 @@ var ReactDOM = require('react-dom');
 var WeatherApp = require('./components/WeatherApp.jsx');
 
 // ReactDOM.render(<Routes />, document.getElementById('app'));
-ReactDOM.render(<WeatherApp bgColor="#ec4444" />, document.getElementById('app'));
+ReactDOM.render(<WeatherApp bgColor="#ec4444" location="Salt Lake City" />, document.getElementById('app'));

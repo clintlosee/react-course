@@ -1,4 +1,5 @@
 var React = require('react');
+var searchFormBox = require('../styles').searchFormBox;
 
 var SearchBox = React.createClass({
     handleSubmit: function(e) {
@@ -15,8 +16,8 @@ var SearchBox = React.createClass({
                             <input
                                 type="text"
                                 placeholder="Search..."
-                                className="col-xs-12 form-control"
-                                style={{background: '#ec3333', border: 'none', color: '#FFF'}}
+                                className="col-xs-12 form-control searchForm"
+                                style={searchFormBox}
                                 onChange={this.onChange}
                                 ref="searchIn"/>
                         </div>

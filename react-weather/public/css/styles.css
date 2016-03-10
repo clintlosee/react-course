@@ -1,0 +1,11 @@
+body {
+  margin-top: 20px;
+}
+
+.searchForm::-webkit-input-placeholder { color: #efefef; }
+.searchForm:-moz-placeholder { /* Firefox 18- */ color: #efefef; }
+.searchForm::-moz-placeholder {  /* Firefox 19+ */ color: #efefef; }
+.searchForm:-ms-input-placeholder { color: #efefef; }
+.searchForm {
+  background: '#ec3333', border: 'none', color: '#FFF'
+}
