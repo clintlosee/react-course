@@ -19898,7 +19898,6 @@ var WeatherApp = React.createClass({
         }.bind(this));
     },
     componentDidMount: function () {
-        //Send a request to OpenWeatherAPI with the default city "Salt Lake City"
         HTTP.get(this.state.location + '&units=' + this.state.units).then(function (data) {
             this.setState({ weather: data, loading: false });
         }.bind(this));
@@ -19916,7 +19915,7 @@ var WeatherApp = React.createClass({
         } else {
             boxStyle.background = '#79b8af';
         }
-        // tempList={this.state.weather.list}
+
         return React.createElement(
             'div',
             { className: 'row' },
@@ -19986,16 +19985,16 @@ var baseUrl = "http://api.openweathermap.org/data/2.5/forecast";
 var apiKey = "&appid=4a6668c79e08aefe81682b49d635b757";
 
 var service = {
-    get: function (url) {
-        return fetch(baseUrl + '?q=' + url + apiKey).then(function (res) {
-            return res.json();
-        });
-    },
-    getDaily: function (url) {
-        return fetch(baseUrl + '/daily?q=' + url + apiKey).then(function (res) {
-            return res.json();
-        });
-    }
+  get: function (url) {
+    return fetch(baseUrl + '?q=' + url + apiKey).then(function (res) {
+      return res.json();
+    });
+  },
+  getDaily: function (url) {
+    return fetch(baseUrl + '/daily?q=' + url + apiKey).then(function (res) {
+      return res.json();
+    });
+  }
 };
 
 module.exports = service;

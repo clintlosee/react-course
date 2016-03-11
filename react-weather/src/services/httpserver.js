@@ -4,16 +4,16 @@ var apiKey = "&appid=4a6668c79e08aefe81682b49d635b757";
 
 var service = {
     get: function(url) {
-        return fetch(baseUrl + '?q=' + url + apiKey)
+      return fetch(baseUrl + '?q=' + url + apiKey)
         .then(function(res) {
             return res.json();
         });
     },
     getDaily: function(url) {
       return fetch(baseUrl + '/daily?q=' + url + apiKey)
-      .then(function(res) {
-        return res.json();
-      });
+        .then(function(res) {
+          return res.json();
+        });
     }
 };
 
