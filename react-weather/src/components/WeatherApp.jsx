@@ -1,5 +1,6 @@
 var React = require('react');
 var HTTP = require('../services/httpserver');
+var HTTPHelper = require('../services/HttpHelper');
 var TodayWeatherBox = require('./TodayWeatherBox.jsx');
 var SearchBox = require('./SearchBox.jsx');
 var ForecastWeatherBox = require('./ForecastWeatherBox.jsx');
@@ -18,27 +19,72 @@ var WeatherApp = React.createClass({
     },
     handleSearch: function(search) {
         //Send a request to OpenWeatherAPI with search criteria
-        HTTP.get(search + '&units=' + this.state.units)
-            .then(function(data) {
-                this.setState({weather: data, search: search, loading: false});
-            }.bind(this));
+        // HTTPHelper.get(search + '&units=' + this.state.units)
+        //     .then(function(data) {
+        //         this.setState({weather: data, search: search, loading: false});
+        //     }.bind(this));
 
-        HTTP.getDaily(search + '&units=' + this.state.units)
-            .then(function(data){
-                this.setState({dailyWeather: data, loading: false});
+        // HTTPHelper.getDaily(search + '&units=' + this.state.units)
+        //     .then(function(data){
+        //         this.setState({dailyWeather: data, search: search, loading: false});
+        //     }.bind(this));
+
+        HTTPHelper.getAll(search + '&units=' + this.state.units)
+            .then(function(info) {
+                this.setState({
+                    weather: info[0].data,
+                    dailyWeather: info[1].data,
+                    loading: false
+                });
             }.bind(this));
     },
     componentDidMount: function() {
-        HTTP.get(this.state.location + '&units=' + this.state.units)
-            .then(function(data) {
-                this.setState({weather: data, loading: false});
+        // HTTP.get(this.state.location + '&units=' + this.state.units)
+        //     .then(function(data) {
+        //         this.setState({weather: data, loading: false});
+        //     }.bind(this));
+        
+        // HTTPHelper.get(this.state.location + '&units=' + this.state.units)
+        //     .then(function(data) {
+        //         this.setState({
+        //             weather: data, 
+        //             loading: false
+        //         });
+        //     }.bind(this));
+
+        // HTTPHelper.getDaily(this.state.location + '&units=' + this.state.units)
+        //     .then(function(data) {
+        //         console.log('daily: ' +data);
+        //         // this.setState({
+        //         //     dailyWeather: data,
+        //         //     loading: false
+        //         // });
+        //     }.bind(this));
+
+
+        HTTPHelper.getAll(this.state.location + '&units=' + this.state.units)
+            .then(function(info) {
+                console.log(info[0].data);
+                this.setState({
+                    weather: info[0].data,
+                    dailyWeather: info[1].data,
+                    loading: false
+                });
             }.bind(this));
     },
     componentWillMount: function() {
-        HTTP.getDaily(this.state.location + '&units=' + this.state.units)
-            .then(function(data) {
-                this.setState({dailyWeather: data, loading: false});
-            }.bind(this));
+    //     HTTP.getDaily(this.state.location + '&units=' + this.state.units)
+    //         .then(function(data) {
+    //             this.setState({dailyWeather: data, loading: false});
+    //         }.bind(this));
+        // HTTPHelper.getDaily(this.state.location + '&units=' + this.state.units)
+        //     .then(function(data) {
+        //         console.log('daily: ' +data);
+        //         this.setState({
+        //             dailyWeather: data,
+        //             loading: false
+        //         });
+        //     }.bind(this));
     },
     render: function() {
         var boxStyle = {};
@@ -49,8 +95,9 @@ var WeatherApp = React.createClass({
             boxStyle.background = '#79b8af';
         }
 
-        return (
-            <div className="row">
+        return this.state.isLoading === true
+            ? <p> LOADING! </p>
+            : <div className="row">
                 <div className="col-sm-4 col-sm-offset-4">
                     <div className="col-sm-12" style={boxStyle}>
                         <SearchBox onSearch={this.handleSearch} />
@@ -91,7 +138,7 @@ var WeatherApp = React.createClass({
                     </div>
                 </div>
             </div>
-        );
+        
     }
 });
 
