@@ -1,7 +1,7 @@
-# React-Skeleton
+# React-Router-Exercise
 
 ### Project Development Instructions
-This is a starter application for React projects. It is based on React and NodeJS.
+This is an example application for React projects that implements React Router. It is based on React and NodeJS.
 
 To use this application, you must install NodeJS.
 `cd` into your desired directory and then `git clone` the repository.
