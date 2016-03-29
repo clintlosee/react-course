@@ -28,12 +28,13 @@ var NavBar = React.createClass({
       <div>
         <nav className="navbar navbar-default" style={navStyle}>
           <div className="navbar-header">
-            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse" aria-expanded="false">
+              <span className="sr-only">Toggle Navigation</span>
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a href="#" className="navbar-brand" style={titleStyle}>Brand Logo</a>
+            <a href="#" className="navbar-brand" style={titleStyle}>{this.props.logo || 'Brand Logo'}</a>
           </div>
           <div className="collape navbar-collapse" id="nav-collapse">
             <ul className="nav navbar-nav">

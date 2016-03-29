@@ -18,7 +18,8 @@ var navLinks = [
 ];
 
 ReactDOM.render(<NavBar
-  // bgColor="red" 
+  bgColor="#FFF" 
   // linkColor="yellow"
-  // titleColor="white"
+  titleColor="#3097d1"
+  logo="My Logo"
   navData={navLinks} />, document.getElementById('main'));

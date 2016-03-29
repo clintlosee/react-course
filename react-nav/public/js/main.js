@@ -19067,7 +19067,12 @@ var NavBar = React.createClass({
           { className: 'navbar-header' },
           React.createElement(
             'button',
-            { type: 'button', className: 'navbar-toggle collapsed', 'data-toggle': 'collapse', 'data-target': '#nav-collapse' },
+            { type: 'button', className: 'navbar-toggle collapsed', 'data-toggle': 'collapse', 'data-target': '#nav-collapse', 'aria-expanded': 'false' },
+            React.createElement(
+              'span',
+              { className: 'sr-only' },
+              'Toggle Navigation'
+            ),
             React.createElement('span', { className: 'icon-bar' }),
             React.createElement('span', { className: 'icon-bar' }),
             React.createElement('span', { className: 'icon-bar' })
@@ -19075,7 +19080,7 @@ var NavBar = React.createClass({
           React.createElement(
             'a',
             { href: '#', className: 'navbar-brand', style: titleStyle },
-            'Brand Logo'
+            this.props.logo || 'Brand Logo'
           )
         ),
         React.createElement(
@@ -19098,23 +19103,37 @@ module.exports = NavBar;
 var React = require('react');
 var PropTypes = React.PropTypes;
 
-function NavItem(props) {
-  return React.createElement(
-    'li',
-    null,
-    React.createElement(
-      'a',
-      { href: props.href, style: props.aStyle },
-      props.title
-    )
-  );
-}
+var NavItem = React.createClass({
+  displayName: 'NavItem',
 
-NavItem.propTypes = {
-  href: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  style: PropTypes.object
-};
+  propTypes: {
+    href: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    style: PropTypes.object
+  },
+  getInitialState: function () {
+    return {
+      hover: false
+    };
+  },
+  mouseOver: function (e) {
+    this.setState({ hover: true });
+  },
+  mouseOut: function (e) {
+    this.setState({ hover: false });
+  },
+  render: function () {
+    return React.createElement(
+      'li',
+      { className: this.state.hover ? 'active' : '', onMouseOver: this.mouseOver, onMouseOut: this.mouseOut },
+      React.createElement(
+        'a',
+        { href: this.props.href, style: this.props.aStyle },
+        this.props.title
+      )
+    );
+  }
+});
 
 module.exports = NavItem;
 
@@ -19134,10 +19153,11 @@ var navLinks = [{
   link: "#"
 }];
 
-ReactDOM.render(React.createElement(NavBar
-// bgColor="red"
-// linkColor="yellow"
-// titleColor="white"
-, { navData: navLinks }), document.getElementById('main'));
+ReactDOM.render(React.createElement(NavBar, {
+  bgColor: '#FFF'
+  // linkColor="yellow"
+  , titleColor: '#3097d1',
+  logo: 'My Logo',
+  navData: navLinks }), document.getElementById('main'));
 
 },{"./components/nav/NavBar":159,"react":157,"react-dom":1}]},{},[161]);
