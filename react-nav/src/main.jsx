@@ -1,25 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var Routes = require('./Routes');
 var NavBar = require('./components/nav/NavBar');
 
-var navLinks = [
-  {
-    title: "Home",
-    link: "/"
-  },
-  {
-    title: "About",
-    link: "#"
-  },
-  {
-    title: "Blog",
-    link: "#"
-  }
-];
-
-ReactDOM.render(<NavBar
-  bgColor="#FFF" 
-  // linkColor="yellow"
-  titleColor="#3097d1"
-  logo="My Logo"
-  navData={navLinks} />, document.getElementById('main'));
+ReactDOM.render(Routes, document.getElementById('main'));
