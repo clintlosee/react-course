@@ -26740,7 +26740,7 @@ var LeadCapture = React.createClass({
 
 module.exports = LeadCapture;
 
-},{"../../reflux/Actions":260,"../../reflux/EmailStore":261,"./EmailField.jsx":254,"./NameField.jsx":256,"react":227,"reflux":243}],256:[function(require,module,exports){
+},{"../../reflux/Actions":261,"../../reflux/EmailStore":262,"./EmailField.jsx":254,"./NameField.jsx":256,"react":227,"reflux":243}],256:[function(require,module,exports){
 var React = require('react');
 
 var NameField = React.createClass({
@@ -26771,6 +26771,7 @@ var React = require('react');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
 var NavItem = require('./NavItem');
+var NavDropdownItem = require('./NavDropdownItem');
 
 var NavBar = React.createClass({
   displayName: 'NavBar',
@@ -26827,7 +26828,8 @@ var NavBar = React.createClass({
           React.createElement(
             'ul',
             { className: 'nav navbar-nav' },
-            this.props.navData.map(renderListItem)
+            this.props.navData.map(renderListItem),
+            React.createElement(NavDropdownItem, null)
           )
         )
       )
@@ -26837,7 +26839,83 @@ var NavBar = React.createClass({
 
 module.exports = NavBar;
 
-},{"./NavItem":258,"react":227,"react-router":49}],258:[function(require,module,exports){
+},{"./NavDropdownItem":258,"./NavItem":259,"react":227,"react-router":49}],258:[function(require,module,exports){
+var React = require('react');
+var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
+var PropTypes = React.PropTypes;
+
+var NavDropdownItem = React.createClass({
+  displayName: 'NavDropdownItem',
+
+  render: function () {
+    return React.createElement(
+      'li',
+      { className: 'dropdown' },
+      React.createElement(
+        'a',
+        { href: '#', className: 'dropdown-toggle', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' },
+        'Dropdown ',
+        React.createElement('span', { className: 'caret' })
+      ),
+      React.createElement(
+        'ul',
+        { className: 'dropdown-menu' },
+        React.createElement(
+          'li',
+          null,
+          React.createElement(
+            'a',
+            { href: '#' },
+            'Action'
+          )
+        ),
+        React.createElement(
+          'li',
+          null,
+          React.createElement(
+            'a',
+            { href: '#' },
+            'Another action'
+          )
+        ),
+        React.createElement(
+          'li',
+          null,
+          React.createElement(
+            'a',
+            { href: '#' },
+            'Something else here'
+          )
+        ),
+        React.createElement('li', { role: 'separator', className: 'divider' }),
+        React.createElement(
+          'li',
+          null,
+          React.createElement(
+            'a',
+            { href: '#' },
+            'Separated link'
+          )
+        ),
+        React.createElement('li', { role: 'separator', className: 'divider' }),
+        React.createElement(
+          'li',
+          null,
+          React.createElement(
+            'a',
+            { href: '#' },
+            'One more separated link'
+          )
+        )
+      )
+    );
+  }
+});
+
+module.exports = NavDropdownItem;
+
+},{"react":227,"react-router":49}],259:[function(require,module,exports){
 var React = require('react');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
@@ -26877,7 +26955,7 @@ var NavItem = React.createClass({
 
 module.exports = NavItem;
 
-},{"react":227,"react-router":49}],259:[function(require,module,exports){
+},{"react":227,"react-router":49}],260:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Routes = require('./Routes');
@@ -26885,14 +26963,14 @@ var NavBar = require('./components/nav/NavBar');
 
 ReactDOM.render(Routes, document.getElementById('main'));
 
-},{"./Routes":250,"./components/nav/NavBar":257,"react":227,"react-dom":21}],260:[function(require,module,exports){
+},{"./Routes":250,"./components/nav/NavBar":257,"react":227,"react-dom":21}],261:[function(require,module,exports){
 var Reflux = require('reflux');
 
 var Actions = Reflux.createActions(['submitEmail']);
 
 module.exports = Actions;
 
-},{"reflux":243}],261:[function(require,module,exports){
+},{"reflux":243}],262:[function(require,module,exports){
 var Reflux = require('reflux');
 var HTTP = require('../services/HttpService');
 var Actions = require('./Actions');
@@ -26914,7 +26992,7 @@ var EmailStore = Reflux.createStore({
 
 module.exports = EmailStore;
 
-},{"../services/HttpService":262,"./Actions":260,"reflux":243}],262:[function(require,module,exports){
+},{"../services/HttpService":263,"./Actions":261,"reflux":243}],263:[function(require,module,exports){
 var Fetch = require('whatwg-fetch');
 var baseUrl = 'http://localhost:6069';
 
@@ -26940,4 +27018,4 @@ var service = {
 
 module.exports = service;
 
-},{"whatwg-fetch":249}]},{},[259]);
+},{"whatwg-fetch":249}]},{},[260]);

@@ -2,6 +2,7 @@ var React = require('react');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
 var NavItem = require('./NavItem');
+var NavDropdownItem = require('./NavDropdownItem');
 
 var NavBar = React.createClass({
   render: function() {
@@ -28,19 +29,20 @@ var NavBar = React.createClass({
 
     return (
       <div>
-        <nav className="navbar navbar-default" style={navStyle}>
-          <div className="navbar-header">
-            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse" aria-expanded="false">
-              <span className="sr-only">Toggle Navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
-            <Link to="/" className="navbar-brand" style={titleStyle}>{this.props.logo || 'Brand Logo'}</Link>
-          </div>
-          <div className="collape navbar-collapse" id="nav-collapse">
-            <ul className="nav navbar-nav">
-              {this.props.navData.map(renderListItem)}
+          <nav className="navbar navbar-default" style={navStyle}>
+              <div className="navbar-header">
+                  <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse" aria-expanded="false">
+                      <span className="sr-only">Toggle Navigation</span>
+                      <span className="icon-bar"></span>
+                      <span className="icon-bar"></span>
+                      <span className="icon-bar"></span>
+                  </button>
+                  <Link to="/" className="navbar-brand" style={titleStyle}>{this.props.logo || 'Brand Logo'}</Link>
+              </div>
+              <div className="collape navbar-collapse" id="nav-collapse">
+                  <ul className="nav navbar-nav">
+                  {this.props.navData.map(renderListItem)}
+                  <NavDropdownItem />
             </ul>
           </div>
         </nav>
