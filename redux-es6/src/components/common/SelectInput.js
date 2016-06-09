@@ -7,7 +7,7 @@ const SelectInput = ({name, label, onChange, defaultOption, value, error, option
             <div className="field">
                 {/* Note: value is set here rather than on the option */}
                 <select
-                    name="name"
+                    name={name}
                     value={value}
                     className="form-control"
                     onChange={onChange}>
