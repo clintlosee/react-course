@@ -11,7 +11,7 @@ function setup(saving) {
         onChange: () => {}
     };
 
-    return shallow(<CourseForm {...props} />); //1123068 Price includes all discounts
+    return shallow(<CourseForm {...props} />);
 }
 
 describe('CourseForm via Enzyme', () => {
